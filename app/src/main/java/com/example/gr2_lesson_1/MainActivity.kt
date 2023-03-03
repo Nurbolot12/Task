@@ -9,6 +9,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.gr2_lesson_1.databinding.ActivityMainBinding
+import com.example.gr2_lesson_1.utils.Preferences
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,11 +32,21 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
+        if (!Preferences(applicationContext).board){
+            navController.navigate(R.id.onBoardFragment)
+        }
+
         navController.addOnDestinationChangedListener{ _, destination, _->
-            if (destination.id == R.id.navigation_new_task){
+            if (destination.id == R.id.navigation_new_task || destination.id ==R.id.onBoardFragment){
                 navView.visibility = View.GONE
             }else{
                 navView.visibility = View.VISIBLE
+            }
+
+            if (destination.id ==R.id.onBoardFragment){
+                supportActionBar?.hide()
+            }else{
+                supportActionBar?.show()
             }
         }
 

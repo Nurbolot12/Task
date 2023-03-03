@@ -1,8 +1,15 @@
 package com.example.gr2_lesson_1.ui.home
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 data class TaskModel(
-    var title: String?,
-    var desc: String?
+
+    @PrimaryKey(autoGenerate = true)
+    var id: Long? = null,
+    var title: String? = null,
+    var desc: String? = null
 
 )
 

@@ -9,10 +9,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContentProviderCompat.requireContext
+import com.bumptech.glide.Glide
 import com.example.gr2_lesson_1.R
 import com.example.gr2_lesson_1.databinding.FragmentNewTaskBinding
 import com.example.gr2_lesson_1.databinding.FragmentProfileBinding
+import com.example.gr2_lesson_1.extenssions.loadImage
+import com.example.gr2_lesson_1.utils.Preferences
 
 class ProfileFragment : Fragment() {
 
@@ -23,13 +28,13 @@ class ProfileFragment : Fragment() {
             Log.e("ololo", "Photo url = : $uri")
             binding.imgProfile.setImageURI(uri)
 
-                Glide
-                .with(requireContext())
-                .load(uri)
-                .cicleCrop()
-                .into(binding.imgProfile);
+            showToast("Success!")
+            binding.imgProfile.loadImage(uri.toString())
 
+            Preferences(requireContext()).imgProfile = uri.toString()
         }
+    }
+
     }
 
     override fun onCreateView(
@@ -51,6 +56,9 @@ class ProfileFragment : Fragment() {
     }
 
     private fun initViews() {
+        var imgProfile = Preferences(requireContext()).imgProfile.toString()
 
+        binding.imgProfile.loadImage(
+        showToast("imgProfile")
     }
-}
+

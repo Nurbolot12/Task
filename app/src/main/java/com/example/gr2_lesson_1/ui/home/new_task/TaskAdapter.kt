@@ -14,6 +14,11 @@ class TaskAdapter : RecyclerView.Adapter<TaskAdapter.TaskHolder>() {
         taskList.add(taskModel)
     }
 
+    fun addTasksFromRoom(list: List<TaskModel>{
+        taskList = list as ArrayList<TaskModel>
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskHolder {
         return TaskHolder(TaskItemBinding.inflate(LayoutInflater.from(parent.context), parent,false))
     }

@@ -13,6 +13,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.gr2_lesson_1.App
 import com.example.gr2_lesson_1.R
 import com.example.gr2_lesson_1.databinding.FragmentHomeBinding
 import com.example.gr2_lesson_1.ui.home.new_task.NewTaskFragment.Companion.TASK_KEY
@@ -56,15 +57,17 @@ class HomeFragment : Fragment() {
         binding.rvHome.layoutManager = LinearLayoutManager(context)
         binding.rvHome.adapter = taskAdapter
 
-        setFragmentResultListener(TASK_KEY,) { _, bundle ->
+         setFragmentResultListener(TASK_KEY,) { _, bundle ->
             Log.e("ololo", "initViews: "+bundle.getString("title") + bundle.getString("desc"))
 
-            var title = bundle.getString("title")
-            var desc = bundle.getString("desc")
+            val title = bundle.getString("title")
+            val desc = bundle.getString("desc")
 
-            taskAdapter.addTask(TaskModel(title, desc
-            ))
+       getDataFromLocalDB()
 
         }
+    private fun getDataFromLocalDB(){
+        val listOfTask = App.db.dao().getAllTasks()
+        taskAdapter.addTasksFromRoom(listOfTask)
     }
 }
