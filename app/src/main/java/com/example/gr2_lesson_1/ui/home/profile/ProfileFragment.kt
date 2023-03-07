@@ -28,14 +28,13 @@ class ProfileFragment : Fragment() {
             Log.e("ololo", "Photo url = : $uri")
             binding.imgProfile.setImageURI(uri)
 
-            showToast("Success!")
             binding.imgProfile.loadImage(uri.toString())
 
             Preferences(requireContext()).imgProfile = uri.toString()
         }
     }
 
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +42,6 @@ class ProfileFragment : Fragment() {
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-        initViews()
         initListeners()
 
         return binding.root
@@ -54,11 +52,4 @@ class ProfileFragment : Fragment() {
             selectImageFromGalleryResult.launch("image/*")
         }
     }
-
-    private fun initViews() {
-        var imgProfile = Preferences(requireContext()).imgProfile.toString()
-
-        binding.imgProfile.loadImage(
-        showToast("imgProfile")
-    }
-
+}

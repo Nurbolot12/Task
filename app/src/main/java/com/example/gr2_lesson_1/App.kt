@@ -25,6 +25,3 @@ class App : Application(){
     }
 }
 
-private fun Room.databaseBuilder(context: App, klass: Class<TaskDatabase>, name: String): RoomDatabase.Builder<TaskDatabase> {
-
-}

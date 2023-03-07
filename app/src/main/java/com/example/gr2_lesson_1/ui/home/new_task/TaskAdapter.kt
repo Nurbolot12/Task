@@ -10,11 +10,13 @@ class TaskAdapter : RecyclerView.Adapter<TaskAdapter.TaskHolder>() {
 
     private var taskList = arrayListOf<TaskModel>()
 
-    fun addTask(taskModel: TaskModel){
-        taskList.add(taskModel)
+    fun addTask(taskModel: List<TaskModel>){
+        taskList.clear()
+        taskList.addAll(taskModel)
+        notifyDataSetChanged()
     }
 
-    fun addTasksFromRoom(list: List<TaskModel>{
+    fun addTasksFromRoom(list: List<TaskModel>){
         taskList = list as ArrayList<TaskModel>
         notifyDataSetChanged()
     }

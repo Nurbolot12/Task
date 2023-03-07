@@ -10,6 +10,8 @@ import androidx.core.content.ContentProviderCompat
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.isVisible
 import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.gr2_lesson_1.R
 import com.example.gr2_lesson_1.databinding.FragmentOnBoardBinding
 import com.example.gr2_lesson_1.databinding.FragmentOnBoardPageBinding
@@ -38,7 +40,7 @@ class OnBoardPageFragment(
     private fun initListeners() {
         binding.btnStart.setOnClickListener{
             findNavController().navigateUp()
-            Preferences(ContentProviderCompat.requireContext()).board = true
+            Preferences(requireContext()).board = true
         }
 
         binding.btnSkip.setOnClickListener{
@@ -50,15 +52,17 @@ class OnBoardPageFragment(
     }
 
     private fun initViews() {
-        val data = arguments?.getSerializable("onBoard") as BoardModel
-        data.image.let {binding.imgBoard.setImageURI(it)}
-        binding.tvTitleBoard.text = data.title
-        binding.tvDescBoard.text = data.desc
+        arguments.let {
+            val data = it?.getSerializable("onBoard") as BoardModel
+            data.image?.let {it1 -> binding.imgBoard.setImageResource(it1)}
+            binding.tvTitleBoard.text = data.title
+            binding.tvDescBoard.text = data.desc
 
-        binding.btnSkip.isVisible = data.isLast == false
-        binding.btnNext.isVisible = data.isLast == false
+            binding.btnSkip.isVisible = data.isLast == false
+            binding.btnNext.isVisible = data.isLast == false
 
-        binding.btnStart.isVisible = data.isLast == true
+            binding.btnStart.isVisible = data.isLast == true
+        }
 
     }
 

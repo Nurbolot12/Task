@@ -1,22 +1,15 @@
 package com.example.gr2_lesson_1.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.setFragmentResultListener
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gr2_lesson_1.App
 import com.example.gr2_lesson_1.R
 import com.example.gr2_lesson_1.databinding.FragmentHomeBinding
-import com.example.gr2_lesson_1.ui.home.new_task.NewTaskFragment.Companion.TASK_KEY
 import com.example.gr2_lesson_1.ui.home.new_task.TaskAdapter
 
 class HomeFragment : Fragment() {
@@ -56,16 +49,14 @@ class HomeFragment : Fragment() {
     private fun initViews() {
         binding.rvHome.layoutManager = LinearLayoutManager(context)
         binding.rvHome.adapter = taskAdapter
-
-         setFragmentResultListener(TASK_KEY,) { _, bundle ->
-            Log.e("ololo", "initViews: "+bundle.getString("title") + bundle.getString("desc"))
-
-            val title = bundle.getString("title")
-            val desc = bundle.getString("desc")
-
-       getDataFromLocalDB()
-
+        setData()
         }
+
+    private fun setData() {
+        val listOfTask = App.db.dao()?.getAllTasks()
+        taskAdapter.addTask(listOfTask as List<TaskModel>)
+    }
+
     private fun getDataFromLocalDB(){
         val listOfTask = App.db.dao().getAllTasks()
         taskAdapter.addTasksFromRoom(listOfTask)

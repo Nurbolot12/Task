@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         if (!Preferences(applicationContext).board){
+
             navController.navigate(R.id.onBoardFragment)
         }
 
